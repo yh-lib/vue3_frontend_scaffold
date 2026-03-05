@@ -1,5 +1,5 @@
 <script setup>
-    import { ref,reactive } from 'vue';
+    import { ref,reactive, watch } from 'vue';
     // 导入图标
     import { User, Lock } from '@element-plus/icons-vue';
     const loginInfo = reactive({
@@ -16,8 +16,23 @@
             { min: 6, message: '请输入6位以上的密码', trigger: 'blur' },
         ],
     })
-    // 声明ref：暂时不知道干嘛用的
+    // 声明 loginRef，用于存放表单数据
     const loginRef = ref()
+    // 表单校验失败时，禁用登录按钮
+    let loginButtonDisabled = ref(true)
+    watch(
+        [
+            () => loginInfo.username,
+            () => loginInfo.password
+        ],
+        () => {
+            loginRef.value.validate(
+                (valid) => {
+                    valid?loginButtonDisabled.value = false : loginButtonDisabled.value = true
+                }
+            )
+        }
+    )
 </script>
 
 <template>  
@@ -54,8 +69,7 @@
             />
         </el-form-item>
         <!-- 登录：按钮 -->
-            <el-button type="primary" @click="submitForm(ruleFormRef)"> 登录 </el-button>
+            <el-button type="primary" @click="submitForm(ruleFormRef)" :disabled="loginButtonDisabled"> 登录 </el-button>
     </el-form>    
   </el-card>
-  
 </template>
