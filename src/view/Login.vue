@@ -1,11 +1,23 @@
 <script setup>
-    import { reactive } from 'vue';
+    import { ref,reactive } from 'vue';
     // 导入图标
     import { User, Lock } from '@element-plus/icons-vue';
     const loginInfo = reactive({
         username: '',
         password: '',
     })
+    // 表单校验
+    const rules = reactive({
+        username: [
+        { required: true, message: '请输入用户名', trigger: 'blur' },
+        ],
+        password: [
+            { required: true, message: '请输入密码', trigger: 'blur' },
+            { min: 6, message: '请输入6位以上的密码', trigger: 'blur' },
+        ],
+    })
+    // 声明ref：暂时不知道干嘛用的
+    const loginRef = ref()
 </script>
 
 <template>  
@@ -14,7 +26,7 @@
     <h2>kubernetes 管理平台</h2>
     <!-- 表单 -->
     <el-form
-        ref="ruleFormRef"
+        ref="loginRef"
         style="max-width: 900px"
         :model="loginInfo"
         status-icon
@@ -23,7 +35,7 @@
         class="demo-ruleForm"
     >
         <!-- 用户名: 输入表单 -->
-        <el-form-item prop="checkPass">
+        <el-form-item prop="username">
             <el-input 
                 v-model="loginInfo.username"
                 placeholder="输入用户名" 
@@ -32,7 +44,7 @@
             />
         </el-form-item>
         <!-- 密码：输入表单 -->
-        <el-form-item prop="pass">
+        <el-form-item prop="password">
             <el-input 
                 v-model="loginInfo.password"
                 type="password"
