@@ -17,6 +17,11 @@ const encapPost = () =>{
         'post',
         50000
     )
+    .then(
+        (response) => {
+            alert(response.data.msg)
+        }
+    )
 }
 
 
