@@ -6,7 +6,7 @@ const encapGet = () =>{
         '/getUserList',
         {id:1001},
         'get',
-        50000
+        3000
     )
 }
 
@@ -15,7 +15,7 @@ const encapPost = () =>{
         '/postOrderList',
         {Authorization:'yyyyyyyyyyyyyyy'},
         'post',
-        50000
+        3000
     )
     .then(
         (response) => {

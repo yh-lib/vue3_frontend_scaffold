@@ -1,10 +1,11 @@
 <script setup>
+import { RouterView } from 'vue-router';
 import AxiosEncap from './components/AxiosEncap.vue';
 
 </script>
 
 <template>
-    <AxiosEncap />
+    <RouterView />
 </template>
 
 <style scoped>
