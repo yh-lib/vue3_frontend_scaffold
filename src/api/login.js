@@ -8,7 +8,7 @@ export const login = (username,password) => {
         API_CONFIG.loginApi,
         {username,password},
         'post',
-        3000
+        5000
         ).then((response)=>{
             console.log('response:',response)
             if (response.data.status === 200) {

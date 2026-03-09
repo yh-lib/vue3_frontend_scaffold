@@ -8,5 +8,12 @@ import AxiosEncap from './components/AxiosEncap.vue';
     <RouterView />
 </template>
 
-<style scoped>
+<style>
+#app {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
 </style>

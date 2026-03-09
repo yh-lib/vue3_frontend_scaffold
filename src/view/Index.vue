@@ -1,8 +1,8 @@
 <script setup>
+import Layout from './layout/Layout.vue';
+
 </script>
 
 <template>
-    <div>
-        首页
-    </div>
+    <layout></layout>
 </template>
