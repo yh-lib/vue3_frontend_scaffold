@@ -1,12 +1,13 @@
 <script setup>
-import { Bicycle  } from '@element-plus/icons-vue';
 </script>
 
 <template>
 <el-aside class='aside-log'>
-    <el-button  text>
-        Kubernetes 管理平台
-    </el-button>        
+    <router-link to="/home">
+        <el-button text>
+            Kubernetes 管理平台
+        </el-button>
+    </router-link>
 </el-aside>
 </template> 
 

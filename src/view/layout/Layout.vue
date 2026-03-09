@@ -21,20 +21,20 @@ import Main from './components/Main.vue';
 .el-container{
   width: 100vw;
   height: 100vh;
-}
-.el-container__el-container{
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-.Header{
-  height: 20vh;
-}
-.Main{
-  height: 60vh;
-}
-.Footer{
-  height: 20vh;
+  .el-container__el-container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .Header{
+    height: 20vh;
+  }
+  .Main{
+    height: 60vh;
+  }
+  .Footer{
+    height: 20vh;
+  }  
 }
 </style>
