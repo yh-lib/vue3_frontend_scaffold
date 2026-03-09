@@ -39,7 +39,8 @@ watch(
 </script>
 
 <template>  
-  <el-card  style="width: 30vw;height: 16vw;">
+<div class="topDiv">
+  <el-card  style="width: 30vw;height: 30vh;">
     <!-- 标题 -->
     <h2>kubernetes 管理平台</h2>
     <!-- 表单 -->
@@ -49,7 +50,7 @@ watch(
         :rules="rules"
         label-width="auto"
         class="demo-ruleForm"
-        style="width: 18vw;margin: 2vw auto auto auto;"
+        style="width: 70%;margin: 7% auto auto auto;"
     >
         <!-- 用户名: 输入表单 -->
         <el-form-item prop="username">
@@ -74,4 +75,15 @@ watch(
             <el-button type="primary" @click="login(loginInfo.username,loginInfo.password)" :disabled="loginButtonDisabled"> 登录 </el-button>
     </el-form>    
   </el-card>
+</div>
 </template>
+
+<style scoped>
+.topDiv{
+    width: 100vw;
+    height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+</style>
