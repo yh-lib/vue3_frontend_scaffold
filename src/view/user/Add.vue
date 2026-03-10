@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import type { FormInstance } from 'element-plus'
 // 定义用户属性
 const userForm = reactive({
     username:"",
@@ -19,8 +18,9 @@ const resetForm = () => {
   <el-form
     ref="userFormRef"
     :model="userForm"
-    label-width="64px"
+    label-width="60px"
     center
+    class="el-form"
   >
     <!-- 表单 -->
     <el-form-item label="姓名"  prop="username">
@@ -36,12 +36,26 @@ const resetForm = () => {
       <el-input v-model="userForm.address" autocomplete="off" />
     </el-form-item>
     <!-- 按钮 -->
-    <el-form-item>
-        <el-button type="primary" @click="submitForm(userForm)" style="margin: 0 auto 0 30%;">提交</el-button>
-        <el-button @click="resetForm()" style="margin: 0 30% 0 auto;">重置</el-button>
-    </el-form-item>
+     <div class="button-group">
+        <el-button type="primary" @click="submitForm(userForm)" >提交</el-button>   
+        <el-button @click="resetForm()">重置</el-button>
+     </div>
+    
+
   </el-form>
 </template>
 
 <style scoped>
+.el-form .el-form-item{
+    width: 70%;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+
+.button-group {
+  display: flex;             /* 启用 Flex 布局 */
+  justify-content: center;  /* 让按钮组整体居中 */
+  gap: 40px;                 /* 【关键】两个按钮之间的间距 */
+  margin-top: 20px;          /* 与上方表单的间距 */
+}
 </style>

@@ -91,7 +91,7 @@ const addUser = () => {
         <el-dialog 
             v-model="addUserDialog"
             title="添加用户"
-            width="30%"
+            width="500px"
         >
             <!-- 添加用户的表单组件 -->
             <Add />
