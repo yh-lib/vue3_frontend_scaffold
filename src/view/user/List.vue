@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed, reactive, ref, onMounted, onBeforeMount  } from 'vue'
-import { getUserListHandler } from '../../api/user.js'
+import { getUserListHandler,deleteUserHandler } from '../../api/user.js'
 import { User } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 interface User {
   username: string
@@ -49,6 +50,31 @@ onBeforeMount(() => {
 
 // 加载图标
 const loading = ref(true)
+
+// 删除用户
+const deleteUser = (row) => {
+    // 删除提醒
+    ElMessageBox.confirm(
+    '确认删除用户：' + row.username,
+    {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+    }
+    )
+    .then(() => {
+        deleteUserHandler(row.id).then((response)=>{
+            ElMessage({
+                type: 'success',
+                message: response.data.msg,
+            })
+        })        
+    })
+    .catch(() => {
+        return
+    }) 
+}
+
 </script>
 
 <template>
@@ -69,15 +95,15 @@ const loading = ref(true)
                 <el-input v-model="search" size="small" placeholder="Type to search" />
             </template>             
             <template #default="scope">
-                <el-button size="small" @click="handleEdit(scope.$index, scope.row)">
-                Edit
+                <el-button size="small" @click="editUser(scope.$index, scope.row)">
+                    编辑
                 </el-button>
                 <el-button
-                size="small"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)"
+                    size="small"    
+                    type="danger"
+                    @click="deleteUser(scope.row)"
                 >
-                Delete
+                    删除
                 </el-button>
             </template>
             </el-table-column>
