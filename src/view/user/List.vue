@@ -3,6 +3,7 @@ import { computed, reactive, ref, onMounted, onBeforeMount  } from 'vue'
 import { getUserListHandler,deleteUserHandler } from '../../api/user.js'
 import { User } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import Add from './Add.vue'
 
 interface User {
   username: string
@@ -75,19 +76,35 @@ const deleteUser = (row) => {
     }) 
 }
 
+// 添加用户
+const addUserDialog = ref(false)
+
+const addUser = () => {
+    addUserDialog.value = true
+}
+
 </script>
 
 <template>
     <el-card>
+        <!-- 添加用户的表单 -->
+        <el-dialog 
+            v-model="addUserDialog"
+            title="添加用户"
+            width="30%"
+        >
+            <!-- 添加用户的表单组件 -->
+            <Add />
+        </el-dialog>
         <template #header>
             <div class="card-header">
                 <span style="font-size: 24px;">用户列表</span>
-                <el-button type="primary">添加</el-button>
+                <el-button type="primary" @click="addUser">添加</el-button>
             </div>
         </template>
         <el-table :data="filterTableData" style="width: 100%" border height="600px" v-loading="loading">
-            <el-table-column label="用户名" prop="username" />
-            <el-table-column label="ID" prop="id" />
+            <el-table-column label="用户名"  prop="username" />
+            <el-table-column label="ID"   prop="id" />
             <el-table-column label="QQ号" prop="qq" />
             <el-table-column label="地址" prop="address" />
             <el-table-column align="right">
