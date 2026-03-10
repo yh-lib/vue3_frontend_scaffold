@@ -1,20 +1,25 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, reactive, ref, onMounted, onBeforeMount  } from 'vue'
+import { getUserListHandler } from '../../api/user.js'
+import { User } from '@element-plus/icons-vue'
 
 interface User {
-  date: string
-  name: string
+  username: string
   address: string
+  id: number
+  qq: string
 }
 
 const search = ref('')
+
 const filterTableData = computed(() =>
-  tableData.filter(
+  data.tableData.filter(
     (data) =>
       !search.value ||
       data.username.toLowerCase().includes(search.value.toLowerCase())
   )
 )
+
 const handleEdit = (index: number, row: User) => {
   console.log(index, row)
 }
@@ -22,14 +27,28 @@ const handleDelete = (index: number, row: User) => {
   console.log(index, row)
 }
 
-const tableData: User[] = [
-  {"id": 1, "username": "user_alpha_01", "qq": "1023456789", "address": "北京市朝阳区建国路 88 号"},
-  {"id": 2, "username": "user_beta_02", "qq": "2034567890", "address": "上海市浦东新区陆家嘴环路 100 号"},
-  {"id": 3, "username": "user_gamma_03", "qq": "3045678901", "address": "广州市天河区天河路 208 号"},
-  {"id": 4, "username": "user_delta_04", "qq": "4056789012", "address": "深圳市南山区科技园科发路 1 号"},
-  {"id": 5, "username": "user_epsilon_05", "qq": "5067890123", "address": "杭州市西湖区文三路 259 号"},
-  {"id": 6, "username": "user_zeta_06", "qq": "6078901234", "address": "成都市武侯区高新大道 300 号"}
-]
+const data = reactive({
+    tableData:[] as User[]
+})
+
+// 获取后端数据
+const getUserList = () =>{
+    getUserListHandler().then((response)=>{
+        if (response.status === 200) {
+            data.tableData = response.data.data; // 更新 tableData
+            loading.value = false
+        } else {
+            console.error('获取用户列表失败:', response.msg);
+        }
+    })
+}
+// 组件加载时自动调用 getUserList 方法
+onBeforeMount(() => {
+    getUserList();
+})
+
+// 加载图标
+const loading = ref(true)
 </script>
 
 <template>
@@ -40,7 +59,7 @@ const tableData: User[] = [
                 <el-button type="primary">添加</el-button>
             </div>
         </template>
-        <el-table :data="filterTableData" style="width: 100%" border >
+        <el-table :data="filterTableData" style="width: 100%" border height="600px" v-loading="loading">
             <el-table-column label="用户名" prop="username" />
             <el-table-column label="ID" prop="id" />
             <el-table-column label="QQ号" prop="qq" />
@@ -62,7 +81,7 @@ const tableData: User[] = [
                 </el-button>
             </template>
             </el-table-column>
-        </el-table>
+        </el-table>      
     </el-card>
 </template>
 
