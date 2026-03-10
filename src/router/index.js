@@ -2,6 +2,7 @@
 import component from "element-plus/es/components/tree-select/src/tree-select-option.mjs";
 import { createRouter,createWebHashHistory } from "vue-router";
 import { API_CONFIG, CONFIG } from "../config";
+import { userRoutes } from "./user";
 
 // 路由配置
 const routes = [
@@ -14,7 +15,9 @@ const routes = [
     {
         path: "/login",
         component: () => import('../view/Login.vue'),
-    }
+    },
+    // 用户管理路由
+    userRoutes
 ]
 
 // 实例化路由

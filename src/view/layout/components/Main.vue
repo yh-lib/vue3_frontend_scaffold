@@ -3,6 +3,6 @@
 
 <template>
     <div>
-        <el-main>Main</el-main>
+       <router-view />
     </div>
 </template>    

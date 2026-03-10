@@ -233,5 +233,21 @@ export const MENU_CONFIG = [
                 icon: 'Setting'
             }
         ]
+    },
+    // 6. 用户管理
+    {
+        title: '用户管理',
+        index: '/user',
+        icon: 'User', // 工具代表系统级设置
+        items: [
+            {
+                title: '添加用户',
+                index: '/user/add'
+            },
+            {
+                title: '查看用户',
+                index: '/user/list'
+            }
+        ]
     }
 ];
