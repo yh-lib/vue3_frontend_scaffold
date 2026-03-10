@@ -22,7 +22,7 @@ const getIcon = (iconName) => {
     <!-- 菜单 -->
      <div id="menu">
         <el-menu
-            default-active="2"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             router
         >
