@@ -27,6 +27,7 @@ const submitForm = (userForm) => {
             type: 'success',
           })
           loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+          emits('rollback')
         })
         // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行        
       }else{
@@ -43,6 +44,8 @@ const rules = reactive({
     qq: [{ required: true, message: '请输入qq号码', trigger: 'blur' }],
     id: [{ required: true, message: '请输入id', trigger: 'blur' }]
 })
+// 添加用户后刷新用户列表
+const emits = defineEmits(["rollback"])
 </script>
 
 <template>
@@ -73,8 +76,6 @@ const rules = reactive({
         <el-button type="primary" @click="submitForm(userForm)" >提交</el-button>   
         <el-button @click="resetForm()">重置</el-button>
      </div>
-    
-
   </el-form>
 </template>
 

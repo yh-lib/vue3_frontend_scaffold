@@ -70,6 +70,7 @@ const deleteUser = (row) => {
                 type: 'success',
                 message: response.data.msg,
             })
+            // 刷新用户列表
             getUserList()
         })
     })
@@ -96,7 +97,7 @@ const addUser = () => {
             width="500px"
         >
             <!-- 添加用户的表单组件 -->
-            <Add />
+            <Add @rollback="getUserList" />
         </el-dialog>
         <template #header>
             <div class="card-header">
