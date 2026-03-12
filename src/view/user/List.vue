@@ -102,7 +102,7 @@ const closeDialog = () =>{
             destroy-on-close
         >
             <!-- 添加用户的表单组件 -->
-            <Add @rollback="getUserList" />
+            <Add />
         </el-dialog>
         <template #header>
             <div class="card-header">
