@@ -35,6 +35,7 @@ const data = reactive({
 
 // 获取后端数据
 const getUserList = () =>{
+    loading.value = true
     getUserListHandler().then((response)=>{
         if (response.status === 200) {
             data.tableData = response.data.data; // 更新 tableData
@@ -50,18 +51,18 @@ onBeforeMount(() => {
 })
 
 // 加载图标
-const loading = ref(true)
+const loading = ref(false)
 
 // 删除用户
 const deleteUser = (row) => {
     // 删除提醒
     ElMessageBox.confirm(
-    '确认删除用户：' + row.username,
-    {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning',
-    }
+        '确认删除用户：' + row.username,
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }
     )
     .then(() => {
         deleteUserHandler(row.id).then((response)=>{
@@ -69,7 +70,8 @@ const deleteUser = (row) => {
                 type: 'success',
                 message: response.data.msg,
             })
-        })        
+            getUserList()
+        })
     })
     .catch(() => {
         return
