@@ -99,6 +99,7 @@ const closeDialog = () =>{
             title="添加用户"
             width="500px"
             @close="closeDialog"
+            destroy-on-close
         >
             <!-- 添加用户的表单组件 -->
             <Add @rollback="getUserList" />
