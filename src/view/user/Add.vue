@@ -18,16 +18,31 @@ const resetForm = () => {
 const loading = ref(false)  
 // 添加用户：提交表单
 const submitForm = (userForm) => {
-    loading.value = true
-    addUserHandler(userForm).then((Response)=>{
-      ElMessage({
-        message: Response.data.msg,
-        type: 'success',
-      })
-      loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+    userFormRef.value.validate((valid)=>{
+      if (valid) {
+        loading.value = true
+        addUserHandler(userForm).then((Response)=>{
+          ElMessage({
+            message: Response.data.msg,
+            type: 'success',
+          })
+          loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+        })
+        // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行        
+      }else{
+          ElMessage({
+            message: "请完善表单内容",
+            type: 'warning',
+          })        
+      }
     })
-    // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行
 }
+// 表单校验
+const rules = reactive({
+    username: [{ required: true, message: '请输入用户名', trigger: 'blur' },],
+    qq: [{ required: true, message: '请输入qq号码', trigger: 'blur' }],
+    id: [{ required: true, message: '请输入id', trigger: 'blur' }]
+})
 </script>
 
 <template>
@@ -38,6 +53,7 @@ const submitForm = (userForm) => {
     center
     class="el-form"
     v-loading="loading"
+    :rules="rules"
   >
     <!-- 表单 -->
     <el-form-item label="姓名"  prop="username">
