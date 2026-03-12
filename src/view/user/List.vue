@@ -80,14 +80,21 @@ const deleteUser = (row) => {
 }
 
 // 添加用户
-const addUserDialog = ref(false)
+const userDialog = ref(false)
 
 const addUser = () => {
-    addUserDialog.value = true
+    method.value='create'
+    userDialog.value = true
 }
 // 关闭弹窗时刷新用户列表
 const closeDialog = () =>{
     getUserList()
+}
+// 更新用户
+const method = ref('')
+const updateUser = () => {
+    method.value='update'
+    userDialog.value = true
 }
 </script>
 
@@ -95,14 +102,14 @@ const closeDialog = () =>{
     <el-card>
         <!-- 添加用户的表单 -->
         <el-dialog 
-            v-model="addUserDialog"
-            title="添加用户"
+            v-model="userDialog"
+            :title="method == 'create' ? '添加用户' : '更新用户'"
             width="500px"
             @close="closeDialog"
             destroy-on-close
         >
             <!-- 添加用户的表单组件 -->
-            <Add />
+            <Add :subMethod='method'/>
         </el-dialog>
         <template #header>
             <div class="card-header">
@@ -120,7 +127,7 @@ const closeDialog = () =>{
                 <el-input v-model="search" size="small" placeholder="Type to search" />
             </template>             
             <template #default="scope">
-                <el-button size="small" @click="editUser(scope.$index, scope.row)">
+                <el-button size="small" @click="updateUser(scope.row)">
                     编辑
                 </el-button>
                 <el-button

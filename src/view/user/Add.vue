@@ -12,6 +12,7 @@ const userForm = reactive({
 // 重置表单
 const userFormRef = ref()
 const resetForm = () => {
+    console.log("重置参数",props.subMethod)
     userFormRef.value.resetFields()
 }
 // 加载图标配置
@@ -28,7 +29,7 @@ const submitForm = (userForm) => {
           })
           loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
         })
-        // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行        
+        // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行      
       }else{
           ElMessage({
             message: "请完善表单内容",
@@ -43,7 +44,9 @@ const rules = reactive({
     qq: [{ required: true, message: '请输入qq号码', trigger: 'blur' }],
     id: [{ required: true, message: '请输入id', trigger: 'blur' }]
 })
-
+// 接受父组件的参数
+const subMethod = ref('')
+const props = defineProps(['subMethod'])
 </script>
 
 <template>
@@ -71,7 +74,9 @@ const rules = reactive({
     </el-form-item>
     <!-- 按钮 -->
      <div class="button-group">
-        <el-button type="primary" @click="submitForm(userForm)" >提交</el-button>   
+        <el-button type="primary" @click="submitForm(userForm)" > 
+          {{ props.subMethod == 'create' ? '提交' : '更新' }}
+        </el-button>   
         <el-button @click="resetForm()">重置</el-button>
      </div>
   </el-form>
