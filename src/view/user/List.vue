@@ -85,7 +85,10 @@ const addUserDialog = ref(false)
 const addUser = () => {
     addUserDialog.value = true
 }
-
+// 关闭弹窗时刷新用户列表
+const closeDialog = () =>{
+    getUserList()
+}
 </script>
 
 <template>
@@ -95,6 +98,7 @@ const addUser = () => {
             v-model="addUserDialog"
             title="添加用户"
             width="500px"
+            @close="closeDialog"
         >
             <!-- 添加用户的表单组件 -->
             <Add @rollback="getUserList" />
