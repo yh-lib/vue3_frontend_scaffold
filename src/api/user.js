@@ -10,3 +10,8 @@ export const getUserListHandler = () => {
 export const deleteUserHandler = (id) => {
     return request(API_CONFIG.userDeleteApi, {id}, 'post', 10000)
 }
+
+// 添加用户
+export const addUserHandler = (userForm) => {
+    return request(API_CONFIG.userAddApi, userForm, 'post', 10000)
+}

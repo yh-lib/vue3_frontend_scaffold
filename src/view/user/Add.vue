@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
+import { addUserHandler } from '../../api/user.js'
+import { ElMessage } from 'element-plus'
 // 定义用户属性
 const userForm = reactive({
     username:"",
@@ -12,6 +14,20 @@ const userFormRef = ref()
 const resetForm = () => {
     userFormRef.value.resetFields()
 }
+// 加载图标配置
+const loading = ref(false)  
+// 添加用户：提交表单
+const submitForm = (userForm) => {
+    loading.value = true
+    addUserHandler(userForm).then((Response)=>{
+      ElMessage({
+        message: Response.data.msg,
+        type: 'success',
+      })
+      loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+    })
+    // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行
+}
 </script>
 
 <template>
@@ -21,6 +37,7 @@ const resetForm = () => {
     label-width="60px"
     center
     class="el-form"
+    v-loading="loading"
   >
     <!-- 表单 -->
     <el-form-item label="姓名"  prop="username">

@@ -28,13 +28,13 @@ import Main from './components/Main.vue';
     flex-direction: column;
   }
   .Header{
-    height: 20vh;
+    height: 10vh;
   }
   .Main{
-    height: 60vh;
+    height: 70vh;
   }
   .Footer{
-    height: 20vh;
+    height: 10vh;
   }  
 }
 </style>

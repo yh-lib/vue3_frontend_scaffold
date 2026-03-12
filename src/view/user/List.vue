@@ -102,7 +102,7 @@ const addUser = () => {
                 <el-button type="primary" @click="addUser">添加</el-button>
             </div>
         </template>
-        <el-table :data="filterTableData" style="width: 100%" border height="600px" v-loading="loading">
+        <el-table :data="filterTableData" style="width: 100%" border height="50vh" v-loading="loading">
             <el-table-column label="用户名"  prop="username" />
             <el-table-column label="ID"   prop="id" />
             <el-table-column label="QQ号" prop="qq" />
