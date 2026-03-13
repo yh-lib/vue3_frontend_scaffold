@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue'
+import { onBeforeMount, onMounted, reactive, ref } from 'vue'
 import { addUserHandler,updateUserHandler } from '../../api/user.js'
 import { ElMessage } from 'element-plus'
 // 定义用户属性
-const userForm = reactive({
+const data = reactive({
+  userForm:{
     username:"",
     qq:"",
     address:"",
-    id:""
+    id:""    
+  }
 })
 // 重置表单
 const userFormRef = ref()
@@ -37,6 +39,7 @@ const submitForm = (userForm) => {
               type: 'success',
             })
             loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+            emit('refresh')
           })
           // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行           
         }
@@ -56,14 +59,25 @@ const rules = reactive({
 })
 // 接受父组件的参数
 const subMethod = ref('')
-const subRow = ref({})
+const subRow = reactive({})
 const props = defineProps(['subMethod','subRow'])
+
+// 解决单向数据流的问题，否则子组件将可以修改父组件的数据：原理是将浅拷贝修改为深度拷贝
+onBeforeMount(()=>{
+  // step1: 将父组件传递的对象转换成一个字符串
+  //    JSON.stringify(props.subRow)
+  // step2: 再将字符串转换成JSON
+  data.userForm=JSON.parse(JSON.stringify(props.subRow))
+})
+
+// 更新用户后刷新用户列表
+const emit = defineEmits(['refresh'])
 </script>
 
 <template>
   <el-form
     ref="userFormRef"
-    :model="userForm"
+    :model="data.userForm"
     label-width="60px"
     center
     class="el-form"
@@ -72,23 +86,25 @@ const props = defineProps(['subMethod','subRow'])
   >
     <!-- 表单 -->
     <el-form-item label="姓名"  prop="username">
-      <el-input v-model="props.subRow.username" autocomplete="off" />
+      <el-input v-model="data.userForm.username" autocomplete="off" />
     </el-form-item>
     <el-form-item label="ID"  prop="id">
-      <el-input v-model="props.subRow.id" autocomplete="off" />
+      <el-input v-model="data.userForm.id" autocomplete="off" />
     </el-form-item>
     <el-form-item label="QQ"  prop="qq">
-      <el-input v-model="props.subRow.qq" autocomplete="off" />
+      <el-input v-model="data.userForm.qq" autocomplete="off" />
     </el-form-item>
     <el-form-item label="地址"  prop="address">
-      <el-input v-model="props.subRow.address" autocomplete="off" />
+      <el-input v-model="data.userForm.address" autocomplete="off" />
     </el-form-item>
     <!-- 按钮 -->
      <div class="button-group">
-        <el-button type="primary" @click="submitForm(userForm)" > 
+        <el-button type="primary" @click="submitForm(data.userForm)" > 
           {{ props.subMethod == 'create' ? '提交' : '更新' }}
         </el-button>   
-        <el-button @click="resetForm()">重置</el-button>
+        <el-button @click="resetForm()">
+          {{ props.subMethod == 'create' ? '清空' : '重置' }}
+        </el-button>
      </div>
   </el-form>
 </template>

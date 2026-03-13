@@ -90,18 +90,27 @@ const userDialog = ref(false)
 
 const addUser = () => {
     method.value='create'
+    data.userForm={}
     userDialog.value = true
 }
-// 关闭弹窗时刷新用户列表
+// 关闭弹窗时是否刷新用户列表
 const closeDialog = () =>{
-    getUserList()
+    method.value == 'create' && getUserList()
 }
 // 更新用户
 const method = ref('')
 const updateUser = (row) => {
+    // 传递给子组件的操作参数
     method.value='update'
+    // 传递当前用户数据给子组件
     data.userForm = row
+    // 打开表单弹窗
     userDialog.value = true
+}
+// 更新用户时刷新用户列表
+const updateUserOperation = () =>{
+    userDialog.value = false
+    getUserList()
 }
 </script>
 
@@ -116,7 +125,7 @@ const updateUser = (row) => {
             destroy-on-close
         >
             <!-- 添加用户的表单组件 -->
-            <Add :subMethod='method' :subRow="data.userForm"/>
+            <Add :subMethod='method' :subRow="data.userForm" @refresh="updateUserOperation"/>
         </el-dialog>
         <template #header>
             <div class="card-header">
