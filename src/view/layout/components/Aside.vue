@@ -18,7 +18,7 @@ const getIcon = (iconName) => {
 <template>
     <!-- 左侧边栏:style是动态样式 -->
 <el-aside 
-    class='aside-log' 
+    class='el-aside' 
     :style="{width:isCollapse?'65px':'320px'}"
 > 
     <!-- 平台名称 -->
@@ -74,12 +74,18 @@ const getIcon = (iconName) => {
 </template> 
 
 <style lang="less" scoped>
-.aside-log{
+.el-aside{
     border-right: 1px solid #cccccc;
     button{
         width: 100%;
         font-size: 25px;
         margin:30px auto;
     }
+    // 折叠动画更加丝滑
+    transition:width 0.15s;
+    -webkit-transition: width 0.15s;
+    -moz-transition: width 0.15s;
+    -webkit-transition: width 0.15s;
+    -o-transition: width 0.15s;
 }
 </style>
