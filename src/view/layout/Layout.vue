@@ -10,9 +10,9 @@ import Main from './components/Main.vue';
     <el-container class="el-container">
       <Aside></Aside>
       <el-container class="el-container__el-container">
-        <Header class="Header"></Header>
-        <Main class="Main"></Main>
-        <Footer class="Footer"></Footer>
+        <Header></Header>
+        <Main></Main>
+        <Footer></Footer>
       </el-container>
     </el-container>
 </template>
@@ -27,14 +27,5 @@ import Main from './components/Main.vue';
     display: flex;
     flex-direction: column;
   }
-  .Header{
-    height: 10vh;
-  }
-  .Main{
-    height: 70vh;
-  }
-  .Footer{
-    height: 10vh;
-  }  
 }
 </style>

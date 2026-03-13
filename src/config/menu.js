@@ -238,7 +238,7 @@ export const MENU_CONFIG = [
     {
         title: '用户管理',
         index: '/user',
-        icon: 'User', // 工具代表系统级设置
+        icon: 'User',
         items: [
             {
                 title: '查看用户',
