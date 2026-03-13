@@ -17,7 +17,10 @@ const getIcon = (iconName) => {
 
 <template>
     <!-- 左侧边栏:style是动态样式 -->
-<el-aside class='aside-log' :style="{width:isCollapse?'65px':'320px'}";> 
+<el-aside 
+    class='aside-log' 
+    :style="{width:isCollapse?'65px':'320px'}"
+> 
     <!-- 平台名称 -->
     <router-link to="/home">
         <el-button text  v-show="!isCollapse">
