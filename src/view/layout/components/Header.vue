@@ -1,8 +1,11 @@
 <script setup>
-import { DArrowLeft,SwitchButton } from '@element-plus/icons-vue'
+import { DArrowLeft,SwitchButton,DArrowRight } from '@element-plus/icons-vue'
 import { logout } from '../../../api/login';
 import { useIsCollapse } from '../../../store/index.js'
 import { storeToRefs } from 'pinia';
+
+// 获取当前菜单栏的状态
+const {isCollapse} = storeToRefs(useIsCollapse())
 
 // 变更菜单栏折叠状态
 const collapseChange = () => {
@@ -14,7 +17,8 @@ const collapseChange = () => {
     <div>
         <el-header class="el-header">
             <el-button @click="collapseChange">
-                <el-icon size="20" ><DArrowLeft /></el-icon>
+                <el-icon size="20" v-show=!isCollapse ><DArrowLeft /></el-icon>
+                <el-icon size="20" v-show=isCollapse><DArrowRight /></el-icon>
             </el-button>
             <el-button @click="logout">
                 <el-icon size="20"><SwitchButton /></el-icon>

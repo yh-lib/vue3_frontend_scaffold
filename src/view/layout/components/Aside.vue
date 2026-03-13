@@ -22,7 +22,7 @@ const getIcon = (iconName) => {
     :style="{width:isCollapse?'65px':'320px'}"
 > 
     <!-- 平台名称 -->
-    <router-link to="/home">
+    <router-link to="/">
         <el-button text  v-show="!isCollapse">
             <span>Kubernetes 管理平台</span>
         </el-button>
@@ -33,7 +33,8 @@ const getIcon = (iconName) => {
             :default-active="$route.path"
             class="el-menu-vertical-demo"
             router
-             :collapse="isCollapse"
+            :collapse="isCollapse"
+            style="border: none;"
         >
             <!-- 自动生成菜单 -->
             <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">
