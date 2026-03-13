@@ -12,7 +12,6 @@ const userForm = reactive({
 // 重置表单
 const userFormRef = ref()
 const resetForm = () => {
-    console.log("重置参数",props.subMethod)
     userFormRef.value.resetFields()
 }
 // 加载图标配置
@@ -57,7 +56,8 @@ const rules = reactive({
 })
 // 接受父组件的参数
 const subMethod = ref('')
-const props = defineProps(['subMethod'])
+const subRow = ref({})
+const props = defineProps(['subMethod','subRow'])
 </script>
 
 <template>
@@ -72,16 +72,16 @@ const props = defineProps(['subMethod'])
   >
     <!-- 表单 -->
     <el-form-item label="姓名"  prop="username">
-      <el-input v-model="userForm.username" autocomplete="off" />
+      <el-input v-model="props.subRow.username" autocomplete="off" />
     </el-form-item>
     <el-form-item label="ID"  prop="id">
-      <el-input v-model="userForm.id" autocomplete="off" />
+      <el-input v-model="props.subRow.id" autocomplete="off" />
     </el-form-item>
     <el-form-item label="QQ"  prop="qq">
-      <el-input v-model="userForm.qq" autocomplete="off" />
+      <el-input v-model="props.subRow.qq" autocomplete="off" />
     </el-form-item>
     <el-form-item label="地址"  prop="address">
-      <el-input v-model="userForm.address" autocomplete="off" />
+      <el-input v-model="props.subRow.address" autocomplete="off" />
     </el-form-item>
     <!-- 按钮 -->
      <div class="button-group">

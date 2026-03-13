@@ -30,7 +30,13 @@ const handleDelete = (index: number, row: User) => {
 }
 
 const data = reactive({
-    tableData:[] as User[]
+    tableData:[] as User[],
+    userForm:{
+        username:"",
+        qq:"",
+        address:"",
+        id:""        
+    }    
 })
 
 // 获取后端数据
@@ -92,8 +98,9 @@ const closeDialog = () =>{
 }
 // 更新用户
 const method = ref('')
-const updateUser = () => {
+const updateUser = (row) => {
     method.value='update'
+    data.userForm = row
     userDialog.value = true
 }
 </script>
@@ -109,7 +116,7 @@ const updateUser = () => {
             destroy-on-close
         >
             <!-- 添加用户的表单组件 -->
-            <Add :subMethod='method'/>
+            <Add :subMethod='method' :subRow="data.userForm"/>
         </el-dialog>
         <template #header>
             <div class="card-header">
