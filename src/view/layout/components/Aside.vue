@@ -1,22 +1,27 @@
 <script setup>
 import { MENU_CONFIG } from '../../../config/menu';
-import { Location,Female,Monitor } from '@element-plus/icons-vue';
 import * as Icons from '@element-plus/icons-vue';
+import { ref } from 'vue';
+import { useIsCollapse } from '../../../store/index.js'
+import { storeToRefs } from 'pinia';
+
+// 获取菜单栏折叠状态
+const {isCollapse} = storeToRefs(useIsCollapse())
+
 // 创建一个获取图标组件的辅助函数
 const getIcon = (iconName) => {
   if (!iconName) return null;
   return Icons[iconName] || null;
 }
-
 </script>
 
 <template>
-    <!-- 左侧边栏 -->
-<el-aside class='aside-log'>
+    <!-- 左侧边栏:style是动态样式 -->
+<el-aside class='aside-log' :style="{width:isCollapse?'65px':'320px'}";> 
     <!-- 平台名称 -->
     <router-link to="/home">
-        <el-button text>
-            Kubernetes 管理平台
+        <el-button text  v-show="!isCollapse">
+            <span>Kubernetes 管理平台</span>
         </el-button>
     </router-link>
     <!-- 菜单 -->
@@ -25,6 +30,7 @@ const getIcon = (iconName) => {
             :default-active="$route.path"
             class="el-menu-vertical-demo"
             router
+             :collapse="isCollapse"
         >
             <!-- 自动生成菜单 -->
             <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">

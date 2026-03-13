@@ -25,3 +25,22 @@ export const useDemoStore = defineStore('demo', {
         }
     }
 })
+
+// 左侧菜单栏状态
+export const useIsCollapse = defineStore('isCollapse', {
+    // 容器的内容
+    // state: 用来存储全局状态/数据，可以理解为数据配置的位置
+    // data
+    state: () => {
+        return {
+            isCollapse: false,
+        }
+    },
+    getters: {
+    },
+    actions: {
+        changeisCollapse(){
+            this.isCollapse = !this.isCollapse
+        }
+    }
+})
