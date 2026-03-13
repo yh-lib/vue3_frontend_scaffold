@@ -35,6 +35,7 @@ const getIcon = (iconName) => {
             router
             :collapse="isCollapse"
             style="border: none;"
+            :collapse-transition="false"
         >
             <!-- 自动生成菜单 -->
             <el-sub-menu v-for="menu in MENU_CONFIG" :key="menu.index" :index="menu.index">
