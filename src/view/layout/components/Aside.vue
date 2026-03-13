@@ -23,8 +23,9 @@ const getIcon = (iconName) => {
 > 
     <!-- 平台名称 -->
     <router-link to="/">
-        <el-button text  v-show="!isCollapse">
-            <span>Kubernetes 管理平台</span>
+        <el-button text>
+            <el-icon><Icons.HomeFilled /></el-icon>
+            <span v-show="!isCollapse">KubeCtrl</span>
         </el-button>
     </router-link>
     <!-- 菜单 -->
