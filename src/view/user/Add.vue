@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { addUserHandler } from '../../api/user.js'
+import { addUserHandler,updateUserHandler } from '../../api/user.js'
 import { ElMessage } from 'element-plus'
 // 定义用户属性
 const userForm = reactive({
@@ -22,14 +22,25 @@ const submitForm = (userForm) => {
     userFormRef.value.validate((valid)=>{
       if (valid) {
         loading.value = true
-        addUserHandler(userForm).then((Response)=>{
-          ElMessage({
-            message: Response.data.msg,
-            type: 'success',
+        if (props.subMethod == 'create') {
+          addUserHandler(userForm).then((Response)=>{
+            ElMessage({
+              message: Response.data.msg,
+              type: 'success',
+            })
+            loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
           })
-          loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
-        })
-        // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行      
+          // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行           
+        }else{
+          updateUserHandler(userForm).then((Response)=>{
+            ElMessage({
+              message: Response.data.msg,
+              type: 'success',
+            })
+            loading.value = false   // 注意：axios是异步运行，必须写在请求里面；
+          })
+          // 写在这里的话，loading.value = false不会等addUserHandler执行完毕才运行           
+        }
       }else{
           ElMessage({
             message: "请完善表单内容",

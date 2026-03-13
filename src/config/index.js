@@ -7,7 +7,8 @@ export const API_CONFIG = {
     logoutApi: "/api/auth/logout",
     userListApi: "/api/user/list",
     userDeleteApi:  "/api/user/delete",
-    userAddApi: "/api/user/add"
+    userAddApi: "/api/user/add",
+    userUpdateApi: "/api/user/update"
 }
 
 export const CONFIG = {

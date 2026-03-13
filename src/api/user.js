@@ -15,3 +15,9 @@ export const deleteUserHandler = (id) => {
 export const addUserHandler = (userForm) => {
     return request(API_CONFIG.userAddApi, userForm, 'post', 10000)
 }
+
+
+// 更新用户
+export const updateUserHandler = (userForm) => {
+    return request(API_CONFIG.userUpdateApi, userForm, 'post', 10000)
+}
