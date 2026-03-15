@@ -1,14 +1,14 @@
 // 用来放置项目的配置信息
-
+console.log("获取环境变量：",import.meta.env.VITE_BASE_URL)
+// 后端接口配置
+const BASE_URL = import.meta.env.VITE_BASE_URL
 export const API_CONFIG = {
-    baseUrl: "https://a5ecb601-bf13-4d6f-9c04-d23ec2f6bc02.mock.pstmn.io",
-    homeApi: "/",
-    loginApi: "/api/auth/login",
-    logoutApi: "/api/auth/logout",
-    userListApi: "/api/user/list",
-    userDeleteApi:  "/api/user/delete",
-    userAddApi: "/api/user/add",
-    userUpdateApi: "/api/user/update"
+    loginApi: `${BASE_URL}/auth/login`,
+    logoutApi: `${BASE_URL}/auth/logout`,
+    userListApi: `${BASE_URL}/user/list`,
+    userDeleteApi:  `${BASE_URL}/user/delete`,
+    userAddApi: `${BASE_URL}/user/add`,
+    userUpdateApi: `${BASE_URL}/user/update`
 }
 
 export const CONFIG = {
