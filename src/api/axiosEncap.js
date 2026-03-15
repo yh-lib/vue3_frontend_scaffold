@@ -5,12 +5,12 @@
 */
 
 import axios from 'axios'
-import {API_CONFIG,CONFIG} from '../config/index.js'
+import { API_CONFIG, CONFIG } from '../config/index.js'
 import router from '../router/index.js'
 import { ElMessage } from 'element-plus'
 
 // axios 全局配置
-axios.defaults.baseURL=API_CONFIG.baseUrl
+axios.defaults.baseURL = API_CONFIG.baseUrl
 
 // axios 拦截器
 // 添加请求拦截器
@@ -20,10 +20,10 @@ axios.interceptors.request.use(
         // 添加请求时的时间戳，处理浏览器缓存问题
         if (config.method == 'get') {
             let timeStamp = (new Date()).getTime()
-            config.params?config.params.timeStamp=timeStamp:config.params={timeStamp:timeStamp}
-        } 
+            config.params ? config.params.timeStamp = timeStamp : config.params = { timeStamp: timeStamp }
+        }
         // 在request header中加入token
-        config.headers.Authorization = window.localStorage.getItem(CONFIG.TOKEN_NAME)            
+        config.headers.Authorization = window.localStorage.getItem(CONFIG.TOKEN_NAME)
         return config;
     },
     (error) => {
@@ -37,7 +37,7 @@ axios.interceptors.response.use(
     (response) => {
         // 2xx 范围内的状态码都会触发该函数。
         // 对响应数据做点什么
-        if (response.data.status == 200){
+        if (response.data.status == 200) {
             return response;
         } else if (response.data.status == 401) {
             // 提示信息
@@ -49,8 +49,8 @@ axios.interceptors.response.use(
             window.localStorage.removeItem(CONFIG.TOKEN_NAME)
             // 跳转到登录页
             router.currentRoute.value.path != API_CONFIG.loginApi && router.push(API_CONFIG.loginApi)
-        }        
-    }, 
+        }
+    },
     (error) => {
         // 超出 2xx 范围的状态码都会触发该函数。
         // 对响应错误做点什么
@@ -60,19 +60,17 @@ axios.interceptors.response.use(
 );
 
 const request = (url = '', data = {}, method = 'get', timeout = 3000) => {
-    console.log("使用封装函数去处理请求")
     return new Promise(
         (resolve, reject) => {
-            console.log("使用axios请求接口")
             // GET POST
             const methodLower = method.toLowerCase()
-            if (methodLower == 'get'){
+            if (methodLower == 'get') {
                 axios({
                     method: methodLower,
                     params: data,
                     timeout: timeout,
                     url: url,
-                }).then((response)=>{
+                }).then((response) => {
                     // 能正常拿到数据
                     resolve(response)
                 }).catch((error) => {
@@ -85,10 +83,10 @@ const request = (url = '', data = {}, method = 'get', timeout = 3000) => {
                     data: data,
                     timeout: timeout,
                     url: url,
-                }).then((response)=>{
+                }).then((response) => {
                     // 能正常拿到数据
                     resolve(response)
-                    
+
                 }).catch((error) => {
                     ElMessage.error(error)
                     reject(error)
